@@ -1,0 +1,48 @@
+# MusiCat Application Configuration
+spring:
+  application:
+    name: MusiCat
+
+  datasource:
+    url: jdbc:h2:mem:test
+    username: root
+    password:
+
+  jpa:
+    #    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+  #        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.example.musicat: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.connections.pooling: WARN
+
+#    TRACE - most detailed, for fine-grained debugging
+#    DEBUG - debugging information
+#    INFO - general informational messages
+#    WARN - potential issues that don't stop execution
+#    ERROR - errors that allow continued execution
+#    FATAL - severe errors that may cause application termination
+#    OFF - completely disables logging
