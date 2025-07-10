@@ -19,5 +19,5 @@ public class Artist {
 //            joinColumns = @JoinColumn(name = "artist_id"),
 //            inverseJoinColumns = @JoinColumn(name = "instrument_id")
 //    )
-//    private Set<Instrument> instruments = new HashSet<>(); C#, Java , C++
+//    private Set<Instrument> instruments = new HashSet<>();
 }

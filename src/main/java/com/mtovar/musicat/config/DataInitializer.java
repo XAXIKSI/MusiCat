@@ -25,10 +25,6 @@ public class DataInitializer {
     public void populate() { //initialize sample data
         this.artistService.init();
 
-//        Artist firstArtist = artistService.findById(1L);
-//        Instrument firstInstrument = instrumentService.findById(1L);
-//        firstArtist.setInstruments(Set.of(firstInstrument));
-//        artistService.update(firstArtist.getId(), firstArtist);
     }
 }
 

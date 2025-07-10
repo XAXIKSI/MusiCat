@@ -24,25 +24,37 @@ public class ArtistService {
 
     public void init() {
         if (artistRepository.count() == 0) {
-            Artist artist = new Artist();
-            artist.setName("Jimmy Page");
-            create(artist);
-            artist = new Artist();
-            artist.setName("Robert Plant");
-            create(artist);
-            artist = new Artist();
-            artist.setName("Jhon Paul Jones");
-            create(artist);
-            artist = new Artist();
-            artist.setName("Jhon Bonham");
-            create(artist);
+            List<String> artistNames = List.of(
+                    // Iron Maiden
+                    "Paul Di'Anno", "Bruce Dickinson", "Dennis Stratton",
+                    "Adrian Smith", "Janick Gers", "Clive Burr",
+                    "Nicko McBrain", "Dave Murray", "Steve Harris",
+                    // Led Zeppelin
+                    "Jimmy Page", "Robert Plant", "John Paul Jones", "John Bonham"
+            );
 
+            List<Artist> artists = artistNames.stream()
+                    .map(name -> {
+                        Artist artist = new Artist();
+                        artist.setName(name);
+                        return artist;
+                    })
+                    .toList();
 
-//            artist = artistRepository.findById(artistId);
-//            instrument = instrumentRepository.findById(instrumentId);
-//            artist.getInstruments().add(instrument);
-//            instrument.getArtists().add(artist);
-//            artistRepository.save(artist);
+            artistRepository.saveAll(artists);
+
+//        Ejemplo 1
+//        artist = artistRepository.findById(artistId);
+//        instrument = instrumentRepository.findById(instrumentId);
+//        artist.getInstruments().add(instrument);
+//        instrument.getArtists().add(artist);
+//        artistRepository.save(artist);
+
+//        Ejemplo 2
+//        Artist firstArtist = artistService.findById(1L);
+//        Instrument firstInstrument = instrumentService.findById(1L);
+//        firstArtist.setInstruments(Set.of(firstInstrument));
+//        artistService.update(firstArtist.getId(), firstArtist);
         }
     }
 
@@ -142,7 +154,6 @@ public class ArtistService {
         }
 
         existingArtist.setName(artist.getName());
-
         return artistRepository.save(existingArtist);
     }
 
@@ -152,8 +163,9 @@ public class ArtistService {
      * @param id the ID of the artist to delete
      */
     public void delete(Long id) {
-        Artist artist = artistRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Artist not found with id: " + id));
-        artistRepository.delete(artist);
+        if (!artistRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Artist not found with id: " + id);
+        }
+        artistRepository.deleteById(id);
     }
 }
