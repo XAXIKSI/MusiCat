@@ -1,0 +1,36 @@
+Enum ArtistType {
+    band
+    musician
+}
+
+Table Artist {
+    id integer [primary key]
+    name varchar(255) [not null, unique]
+    type ArtistType [not null]
+}
+
+Table Instrument {
+    id integer [primary key]
+    name varchar(255) [not null, unique]
+}
+
+Table Track {
+    id integer [primary key]
+    name varchar(255) [not null]
+    owner integer [ref: > Artist.id, not null]
+}
+
+Table Album {
+    id integer [primary key]
+    title varchar(255) [not null]
+    year integer [not null]
+}
+
+Table Contribution{
+    id integer [primary key]
+    artist_id integer [ref: > Artist.id]
+    track_id integer [ref: > Track.id]
+}
+
+Ref: Track.id <> Album.id
+Ref: Contribution.id <> Instrument.id

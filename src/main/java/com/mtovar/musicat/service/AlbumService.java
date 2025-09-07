@@ -3,9 +3,10 @@ package com.mtovar.musicat.service;
 import com.mtovar.musicat.model.entity.Album;
 import com.mtovar.musicat.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.mtovar.musicat.exception.custom.ResourceNotFoundException;
+import java.time.Year;
 
 import java.util.List;
 
@@ -13,15 +14,17 @@ import java.util.List;
 @Transactional
 public class AlbumService {
 
-    private final AlbumRepository albumRepository;
+    private final AlbumRepository repository;
+
+    private final int firstRecordedYear = 1857;
 
     @Autowired
-    public AlbumService(AlbumRepository albumRepository) {
-        this.albumRepository = albumRepository;
+    public AlbumService(AlbumRepository repository) {
+        this.repository = repository;
     }
 
     public void init() {
-        if (albumRepository.count() == 0) {
+        if (repository.count() == 0) {
             // Initialize with some sample albums
             List<Object[]> albumData = List.of(
                     // Iron Maiden
@@ -53,18 +56,18 @@ public class AlbumService {
                     })
                     .toList();
 
-            albumRepository.saveAll(albums);
+            repository.saveAll(albums);
         }
     }
 
     @Transactional(readOnly = true)
     public boolean existsById(Long id){
-        return albumRepository.existsById(id);
+        return repository.existsById(id);
     }
 
     @Transactional(readOnly = true)
     public boolean existsByTitle(String albumTitle){
-        return albumRepository.existsByTitle(albumTitle);
+        return repository.existsByTitle(albumTitle);
     }
 
     public Album create(Album album) {
@@ -74,49 +77,49 @@ public class AlbumService {
         if (album.getTitle() == null || album.getTitle().isEmpty()) {
             throw new IllegalArgumentException("Album title cannot be null or empty");
         }
-        if (album.getYear() < 1857 || album.getYear() > 2025) {
-            throw new IllegalArgumentException("Album year must be between 1857 and the current year");
+        if (album.getYear() < firstRecordedYear || album.getYear() > Year.now().getValue()) {
+            throw new IllegalArgumentException("Album year must be between " + firstRecordedYear + " and the current year");
         }
-        if (albumRepository.existsByTitle(album.getTitle())) {
+        if (repository.existsByTitle(album.getTitle())) {
             throw new IllegalArgumentException("Album with title '" + album.getTitle() + "' already exists");
         }
-        return albumRepository.save(album);
+        return repository.save(album);
     }
 
     @Transactional(readOnly = true)
     public List<Album> findAll() {
-        return albumRepository.findAll();
+        return repository.findAll();
     }
 
     @Transactional(readOnly = true)
     public Album findById(Long id){
-        return albumRepository.findById(id)
+        return repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Album not found with id: " + id));
     }
 
     public Album update(Long id, Album album) {
-        Album existingAlbum = albumRepository.findById(id)
+        Album existingAlbum = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Album not found with id: " + id));
 
         if (album.getTitle() == null || album.getTitle().isEmpty()) {
             throw new IllegalArgumentException("Album title cannot be null or empty");
         }
-        if (album.getYear() < 1857 || album.getYear() > 2025) {
-            throw new IllegalArgumentException("Album year must be between 1857 and the current year");
+        if (album.getYear() < firstRecordedYear || album.getYear() > Year.now().getValue()) {
+            throw new IllegalArgumentException("Album year must be between " + firstRecordedYear + " and the current year");
         }
-        if (!existingAlbum.getTitle().equals(album.getTitle()) && albumRepository.existsByTitle(album.getTitle())) {
+        if (!existingAlbum.getTitle().equals(album.getTitle()) && repository.existsByTitle(album.getTitle())) {
             throw new IllegalArgumentException("Album with name '" + album.getTitle() + "' already exists");
         }
 
         existingAlbum.setTitle(album.getTitle());
         existingAlbum.setYear(album.getYear());
-        return albumRepository.save(album);
+        return repository.save(album);
     }
 
     public void delete(Long id) {
-        if (!albumRepository.existsById(id)) {
+        if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Album not found with id: " + id);
         }
-        albumRepository.deleteById(id);
+        repository.deleteById(id);
     }
 }

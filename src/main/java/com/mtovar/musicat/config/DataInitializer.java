@@ -1,6 +1,8 @@
 package com.mtovar.musicat.config;
 
+import com.mtovar.musicat.service.AlbumService;
 import com.mtovar.musicat.service.ArtistService;
+import com.mtovar.musicat.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataInitializer {
     private final ArtistService artistService;
+//    private final AlbumService albumService;
+//    private final TrackService trackService;
 
     @Autowired
     public DataInitializer(ArtistService artistService) {
@@ -24,7 +28,6 @@ public class DataInitializer {
     @EventListener(ApplicationStartedEvent.class)
     public void populate() { //initialize sample data
         this.artistService.init();
-
     }
 }
 

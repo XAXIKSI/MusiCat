@@ -1,7 +1,7 @@
 package com.mtovar.musicat.controller;
 
-import com.mtovar.musicat.service.ArtistService;
-import com.mtovar.musicat.model.entity.Artist;
+import com.mtovar.musicat.model.entity.Track;
+import com.mtovar.musicat.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,37 +10,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/artists")
-public class ArtistController {
-
-    private final ArtistService service;
+@RequestMapping("/api/tracks")
+public class TrackController {
+    private final TrackService service;
 
     @Autowired
-    public ArtistController(ArtistService service) {
+    public TrackController(TrackService service) {
         this.service = service;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Artist> create(@RequestBody Artist artist) {
-        Artist created = service.create(artist);
+    public ResponseEntity<Track> create(@RequestBody Track track) {
+        Track created = service.create(track);
         return ResponseEntity.ok(created);
     }
 
     @GetMapping
-    public List<Artist> getAll() {
+    public List<Track> getAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Artist> getById(@PathVariable Long id) {
-        Artist artist = service.findById(id);
-        return ResponseEntity.ok(artist);
+    public ResponseEntity<Track> getById(@PathVariable Long id) {
+        Track track = service.findById(id);
+        return ResponseEntity.ok(track);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Artist> update(@PathVariable Long id, @RequestBody Artist artist) {
-        Artist updated = service.update(id, artist);
+    public ResponseEntity<Track> update(@PathVariable Long id, @RequestBody Track track) {
+        Track updated = service.update(id, track);
         return ResponseEntity.ok(updated);
     }
 
