@@ -1,15 +1,51 @@
 package com.mtovar.musicat.model.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-
-@Entity
-@Data
-public class Instrument {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String name;
+public enum Instrument {
+    VOCALS,
+    BACKING_VOCALS,
+    HARMONICA,
+    UKELELE,
+    LUTE,
+    BANJO,
+    GUITAR,
+    ELECTRIC_GUITAR,
+    BASS_GUITAR,
+    DRUMS,
+    PIANO,
+    ORGAN,
+    KEYBOARDS,
+    SYNTHESIZER,
+    ACCORDION,
+    SOPRANO_SAXOPHONE,
+    ALTO_SAXOPHONE,
+    TENOR_SAXOPHONE,
+    BARITONE_SAXOPHONE,
+    FLUTE,
+    OBOE,
+    CLARINET,
+    BASS_CLARINET,
+    BASSOON,
+    FRENCH_HORN,
+    CORNET,
+    FLUGELHORN,
+    TRUMPET,
+    TROMBONE,
+    EUPHONIUM,
+    TUBA,
+    STRINGS,
+    VIOLIN,
+    VIOLA,
+    CELLO,
+    DOUBLE_BASS,
+    HARP,
+    PERCUSSION,
+    TIMPANI,
+    SNARE_DRUM,
+    BASS_DRUM,
+    CYMBALS,
+    TRIANGLE,
+    TAMBOURINE,
+    MALLET_PERCUSSION,
+    XYLOPHONE,
+    MARIMBA
 }

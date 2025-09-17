@@ -3,8 +3,12 @@ package com.mtovar.musicat.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
+@Table(name = "artists")
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,11 +17,14 @@ public class Artist {
     @Column(nullable = false)
     private String name;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "artist_instrument",
-//            joinColumns = @JoinColumn(name = "artist_id"),
-//            inverseJoinColumns = @JoinColumn(name = "instrument_id")
-//    )
-//    private Set<Instrument> instruments = new HashSet<>();
+    @Column(nullable = false)
+    private Instrument instrument;
+
+    @ManyToMany
+    @JoinTable(
+            name = "artist_track",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "track_id")
+    )
+    private Set<Track> tracks = new HashSet<>();
 }

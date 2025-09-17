@@ -1,12 +1,14 @@
 package com.mtovar.musicat.service;
 
 import com.mtovar.musicat.model.entity.Track;
+import com.mtovar.musicat.config.Constans;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mtovar.musicat.exception.custom.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import com.mtovar.musicat.repository.TrackRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -33,10 +35,16 @@ public class TrackService {
         if (track.getId() != null) {
             throw new IllegalArgumentException("Track ID must be null for a new track");
         }
-        if (track.getTitle() == null || track.getTitle().isEmpty()) {
+        if (track.getTitle() == null || track.getTitle().trim().isEmpty()) {
             throw new IllegalArgumentException("Track name cannot be null or empty");
         }
-        if (repository.existsByTitle(track.getTitle())) {
+        if (track.getOwner() == null || track.getOwner().trim().isEmpty()) {
+            throw new IllegalArgumentException("Owner name cannot be null or empty");
+        }
+        if (track.getRecordedDate().isBefore(Constans.MIN_DATE)  || track.getRecordedDate().isAfter(Constans.MAX_DATE)) {
+            throw new IllegalArgumentException("Track date must be between " + Constans.MIN_DATE + " and the current date");
+        }
+        if (repository.existsByTitleAndOwnerAndRecordedDate(track.getTitle(), track.getOwner(), track.getRecordedDate())) {
             throw new IllegalArgumentException("Track with name '" + track.getTitle() + "' already exists");
         }
         return repository.save(track);
@@ -57,14 +65,18 @@ public class TrackService {
         Track existingTrack = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Track not found with id: " + id));
 
-        if (track.getTitle() == null || track.getTitle().isEmpty()) {
-            throw new IllegalArgumentException("Track title cannot be null or empty");
+        if (track.getTitle() == null || track.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Track name cannot be null or empty");
         }
-        if (!existingTrack.getTitle().equals(track.getTitle()) && repository.existsByTitle(track.getTitle())) {
-            throw new IllegalArgumentException("Track with name '" + track.getTitle() + "' already exists");
+        if (track.getOwner() == null || track.getOwner().trim().isEmpty()) {
+            throw new IllegalArgumentException("Owner name cannot be null or empty");
+        }
+        if (track.getRecordedDate().isBefore(Constans.MIN_DATE)  || track.getRecordedDate().isAfter(Constans.MAX_DATE)) {
+            throw new IllegalArgumentException("Track date must be between " + Constans.MIN_DATE + " and the current date");
         }
 
         existingTrack.setTitle(track.getTitle());
+        existingTrack.setRecordedDate(track.getRecordedDate());
         return repository.save(track);
     }
 

@@ -1,0 +1,47 @@
+Enum Instrument {
+    string
+    percussion
+    wind
+    keyboard
+    electronic
+}
+
+Table Artist {
+    id integer [primary key]
+    name varchar(255) [not null, unique]
+    instrument Instrument [not null]
+}
+
+Table Track {
+    id integer [primary key]
+    title varchar(255) [not null]
+    owner varchar(255) [not null]
+    recordedDate date [not null]
+}
+
+Table Album {
+    id integer [primary key]
+    title varchar(255) [not null]
+    owner varchar(255) [not null]
+    releasedDate date [not null]
+}
+
+Table ArtistTrack {
+    artist_id integer [ref: > Artist.id]
+    track_id integer [ref: > Track.id]
+
+    indexes {
+        (artist_id, track_id) [unique]
+    }
+}
+
+Table AlbumTrack {
+    album_id integer [ref: > Album.id]
+    track_id integer [ref: > Track.id]
+    disc_number integer [not null, default: 1]
+    track_number integer [not null, default: 1]
+
+    indexes {
+        (album_id, track_id) [unique]
+    }
+}
