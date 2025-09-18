@@ -1,14 +1,12 @@
 package com.mtovar.musicat.service;
 
-import com.mtovar.musicat.config.Constans;
+import com.mtovar.musicat.config.Constants;
 import com.mtovar.musicat.model.entity.Album;
 import com.mtovar.musicat.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.mtovar.musicat.exception.custom.ResourceNotFoundException;
-
-import java.time.LocalDate;
 
 import java.util.List;
 
@@ -79,8 +77,8 @@ public class AlbumService {
         if (album.getOwner() == null || album.getOwner().trim().isEmpty()) {
             throw new IllegalArgumentException("Owner name cannot be null or empty");
         }
-        if (album.getReleasedDate().isBefore(Constans.MIN_DATE)  || album.getReleasedDate().isAfter(Constans.MAX_DATE)) {
-            throw new IllegalArgumentException("Album date must be between " + Constans.MIN_DATE + " and the current date");
+        if (album.getReleasedDate().isBefore(Constants.MIN_DATE)  || album.getReleasedDate().isAfter(Constants.MAX_DATE)) {
+            throw new IllegalArgumentException("Album date must be between " + Constants.MIN_DATE + " and the current date");
         }
         if (repository.existsByTitleAndOwnerAndReleasedDate(album.getTitle(), album.getOwner(), album.getReleasedDate())) {
             throw new IllegalArgumentException("Album with name '" + album.getTitle() + "' already exists");
@@ -109,8 +107,8 @@ public class AlbumService {
         if (album.getOwner() == null || album.getOwner().trim().isEmpty()) {
             throw new IllegalArgumentException("Owner name cannot be null or empty");
         }
-        if (album.getReleasedDate().isBefore(Constans.MIN_DATE)  || album.getReleasedDate().isAfter(Constans.MAX_DATE)) {
-            throw new IllegalArgumentException("Album date must be between " + Constans.MIN_DATE + " and the current date");
+        if (album.getReleasedDate().isBefore(Constants.MIN_DATE)  || album.getReleasedDate().isAfter(Constants.MAX_DATE)) {
+            throw new IllegalArgumentException("Album date must be between " + Constants.MIN_DATE + " and the current date");
         }
 
         existingAlbum.setTitle(album.getTitle());

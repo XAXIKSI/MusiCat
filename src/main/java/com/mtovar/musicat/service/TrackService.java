@@ -1,14 +1,13 @@
 package com.mtovar.musicat.service;
 
 import com.mtovar.musicat.model.entity.Track;
-import com.mtovar.musicat.config.Constans;
+import com.mtovar.musicat.config.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mtovar.musicat.exception.custom.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import com.mtovar.musicat.repository.TrackRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -41,8 +40,8 @@ public class TrackService {
         if (track.getOwner() == null || track.getOwner().trim().isEmpty()) {
             throw new IllegalArgumentException("Owner name cannot be null or empty");
         }
-        if (track.getRecordedDate().isBefore(Constans.MIN_DATE)  || track.getRecordedDate().isAfter(Constans.MAX_DATE)) {
-            throw new IllegalArgumentException("Track date must be between " + Constans.MIN_DATE + " and the current date");
+        if (track.getRecordedDate().isBefore(Constants.MIN_DATE)  || track.getRecordedDate().isAfter(Constants.MAX_DATE)) {
+            throw new IllegalArgumentException("Track date must be between " + Constants.MIN_DATE + " and the current date");
         }
         if (repository.existsByTitleAndOwnerAndRecordedDate(track.getTitle(), track.getOwner(), track.getRecordedDate())) {
             throw new IllegalArgumentException("Track with name '" + track.getTitle() + "' already exists");
@@ -71,8 +70,8 @@ public class TrackService {
         if (track.getOwner() == null || track.getOwner().trim().isEmpty()) {
             throw new IllegalArgumentException("Owner name cannot be null or empty");
         }
-        if (track.getRecordedDate().isBefore(Constans.MIN_DATE)  || track.getRecordedDate().isAfter(Constans.MAX_DATE)) {
-            throw new IllegalArgumentException("Track date must be between " + Constans.MIN_DATE + " and the current date");
+        if (track.getRecordedDate().isBefore(Constants.MIN_DATE)  || track.getRecordedDate().isAfter(Constants.MAX_DATE)) {
+            throw new IllegalArgumentException("Track date must be between " + Constants.MIN_DATE + " and the current date");
         }
 
         existingTrack.setTitle(track.getTitle());

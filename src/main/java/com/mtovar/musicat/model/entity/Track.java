@@ -1,7 +1,9 @@
 package com.mtovar.musicat.model.entity;
 
-import com.mtovar.musicat.config.Constans;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mtovar.musicat.config.Constants;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,18 +18,22 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String title;
 
+    @NotBlank
     @Column(nullable = false)
     private String owner;
 
     @Column(nullable = false)
-    private LocalDate recordedDate = Constans.MIN_DATE;
+    private LocalDate recordedDate = Constants.MIN_DATE;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tracks")
     private Set<Artist> artists = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TrackAlbum> trackAlbums = new HashSet<>();
 }

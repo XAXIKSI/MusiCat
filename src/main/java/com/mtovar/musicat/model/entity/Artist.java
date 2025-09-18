@@ -1,6 +1,8 @@
 package com.mtovar.musicat.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.HashSet;
@@ -14,6 +16,7 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
@@ -21,6 +24,7 @@ public class Artist {
     private Instrument instrument;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "artist_track",
             joinColumns = @JoinColumn(name = "artist_id"),
