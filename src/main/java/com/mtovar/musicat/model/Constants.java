@@ -1,4 +1,4 @@
-package com.mtovar.musicat.config;
+package com.mtovar.musicat.model;
 
 import java.time.LocalDate;
 

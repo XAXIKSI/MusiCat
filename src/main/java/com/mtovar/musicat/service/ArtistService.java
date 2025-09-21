@@ -20,55 +20,6 @@ public class ArtistService {
         this.repository = repository;
     }
 
-    public void init() {
-//        if (repository.count() == 0) {
-//            List<String> artistNames = List.of(
-//                    // Iron Maiden
-//                    "Paul Di'Anno", "Bruce Dickinson", "Dennis Stratton",
-//                    "Adrian Smith", "Janick Gers", "Clive Burr",
-//                    "Nicko McBrain", "Dave Murray", "Steve Harris",
-//                    // Led Zeppelin
-//                    "Jimmy Page", "Robert Plant", "John Paul Jones", "John Bonham"
-//            );
-//
-//            List<Artist> artists = artistNames.stream()
-//                    .map(name -> {
-//                        Artist artist = new Artist();
-//                        artist.setName(name);
-//                        return artist;
-//                    })
-//                    .toList();
-//
-//            repository.saveAll(artists);
-//
-//
-//        // 1. Buscar o crear a Charlie Parker
-//        Artist parker = artistRepository.findByName("Charlie Parker")
-//                .orElseGet(() -> {
-//                    Artist newArtist = new Artist();
-//                    newArtist.setName("Charlie Parker");
-//                    return artistRepository.save(newArtist);
-//                });
-//
-//        // 2. Crear el track Billie’s Bounce
-//        Track track = new Track();
-//        track.setTitle("Billie's Bounce");
-//        track.setOwner("Savoy Records");  // ejemplo
-//        track.setRecordedDate(LocalDate.of(1945, 11, 26));
-//        track.setTake(1);
-//        track.setType(TrackType.STUDIO); // depende de tu enum
-//
-//        track = trackRepository.save(track);
-//
-//        // 3. Crear la relación ArtistTrack
-//        ArtistTrack artistTrack = new ArtistTrack();
-//        artistTrack.setArtist(parker);
-//        artistTrack.setTrack(track);
-//
-//        artistTrackRepository.save(artistTrack);
-//        }
-    }
-
     @Transactional(readOnly = true)
     public boolean existsById(Long id) {
         return repository.existsById(id);

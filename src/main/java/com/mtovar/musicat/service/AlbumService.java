@@ -1,6 +1,6 @@
 package com.mtovar.musicat.service;
 
-import com.mtovar.musicat.config.Constants;
+import com.mtovar.musicat.model.Constants;
 import com.mtovar.musicat.model.entity.Album;
 import com.mtovar.musicat.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,42 +19,6 @@ public class AlbumService {
     @Autowired
     public AlbumService(AlbumRepository repository) {
         this.repository = repository;
-    }
-
-    public void init() {
-//        if (repository.count() == 0) {
-//            // Initialize with some sample albums
-//            List<Object[]> albumData = List.of(
-//                    // Iron Maiden
-//                    new Object[]{"Iron Maiden", 1980},
-//                    new Object[]{"Killers", 1981},
-//                    new Object[]{"The Number of the Beast", 1982},
-//                    new Object[]{"Piece of Mind", 1983},
-//                    new Object[]{"Powerslave", 1984},
-//                    new Object[]{"Somewhere in Time", 1986},
-//
-//                    // Led Zeppelin
-//                    new Object[]{"Led Zeppelin", 1969},
-//                    new Object[]{"Led Zeppelin II", 1969},
-//                    new Object[]{"Led Zeppelin III", 1970},
-//                    new Object[]{"Led Zeppelin IV", 1971},
-//                    new Object[]{"Houses of the Holy", 1973},
-//                    new Object[]{"Physical Graffiti", 1975},
-//                    new Object[]{"Presence", 1976},
-//                    new Object[]{"In Through the Out Door", 1979},
-//                    new Object[]{"Coda", 1982}
-//            );
-//
-//            List<Album> albums = albumData.stream()
-//                    .map(data -> {
-//                        Album album = new Album();
-//                        album.setTitle((String) data[0]);
-//                        return album;
-//                    })
-//                    .toList();
-//
-//            repository.saveAll(albums);
-//        }
     }
 
     @Transactional(readOnly = true)

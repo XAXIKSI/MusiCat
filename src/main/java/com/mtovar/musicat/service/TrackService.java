@@ -1,7 +1,7 @@
 package com.mtovar.musicat.service;
 
 import com.mtovar.musicat.model.entity.Track;
-import com.mtovar.musicat.config.Constants;
+import com.mtovar.musicat.model.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.mtovar.musicat.exception.custom.ResourceNotFoundException;
 import org.springframework.stereotype.Service;

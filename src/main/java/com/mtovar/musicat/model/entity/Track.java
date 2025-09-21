@@ -1,7 +1,7 @@
 package com.mtovar.musicat.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mtovar.musicat.config.Constants;
+import com.mtovar.musicat.model.Constants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
