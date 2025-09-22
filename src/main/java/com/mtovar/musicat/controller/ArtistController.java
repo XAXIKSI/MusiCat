@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/artists")
 public class ArtistController {
-
     private final ArtistService service;
 
     @Autowired
@@ -28,9 +27,7 @@ public class ArtistController {
     }
 
     @GetMapping
-    public List<Artist> getAll() {
-        return service.findAll();
-    }
+    public List<Artist> getAll() { return service.findAll(); }
 
     @GetMapping("/{id}")
     public ResponseEntity<Artist> getById(@PathVariable Long id) {
