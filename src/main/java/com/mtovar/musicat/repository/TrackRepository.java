@@ -10,5 +10,4 @@ import java.time.LocalDate;
 public interface TrackRepository extends JpaRepository<Track, Long> {
     boolean existsByTitle(String title);
     boolean existsByTitleAndOwnerAndRecordedDate(String title, String owner, LocalDate recordedDate);
-
 }

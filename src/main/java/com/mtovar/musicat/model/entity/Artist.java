@@ -20,13 +20,14 @@ public class Artist {
     @Column(nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Instrument instrument;
 
     @ManyToMany
     @JsonIgnore
     @JoinTable(
-            name = "artist_track",
+            name = "rel_artist_track",
             joinColumns = @JoinColumn(name = "artist_id"),
             inverseJoinColumns = @JoinColumn(name = "track_id")
     )

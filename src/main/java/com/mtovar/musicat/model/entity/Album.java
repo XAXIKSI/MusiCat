@@ -31,5 +31,5 @@ public class Album {
 
     @JsonIgnore
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<TrackAlbum> trackAlbums = new HashSet<>();
+    private Set<RelTrackAlbum> relTrackAlbums = new HashSet<>();
 }

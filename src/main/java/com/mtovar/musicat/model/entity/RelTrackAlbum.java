@@ -9,8 +9,8 @@ import lombok.ToString;
 
 @Entity
 @Data
-@Table(name = "track_album")
-public class TrackAlbum {
+@Table(name = "rel_track_album")
+public class RelTrackAlbum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
